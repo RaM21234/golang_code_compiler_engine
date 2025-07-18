@@ -46,9 +46,10 @@ The project follows a client-server architecture
 
 - **Frontend:** A React application provides the user interface, handling code editing, user authentication, and displaying execution results.
 - **Backend:** A Go application serves the API endpoints. It manages user data, code storage, and orchestrates the code compilation and execution process.
-  ![Code Execution Flow](images/img1.png)
+  
+![Code Execution Flow](images/img1.png)
 - **Code Execution Sandbox:** The backend utilizes Docker to create isolated environments (Docker-in-Docker) for compiling and running user-submitted code. Each execution request spins up a new, ephemeral Docker container based on pre-configured language-specific images. This ensures security and prevents code from affecting the main server or other users.
-
+  
 ![Docker Container Isolation](images/img2.png)
 
 - **Databases:** MongoDB is used for persistent data storage, while Redis is integrated for caching purposes.
@@ -70,7 +71,7 @@ Make sure you have the following installed on your machine:
 ### Cloning the Repository
 
 ```bash
-git clone https://github.com/RaM21234/olang_code_compiler_engine.git
+git clone https://github.com/RaM21234/golang_code_compiler_engine.git
 cd download_folder
 ```
 
@@ -88,24 +89,13 @@ MAIL_PASSWORD: Your email password
 
 **Note:** For `MAIL_PASSWORD`, if you are using Gmail, you might need to generate an App Password instead of using your regular password, especially if you have 2-Factor Authentication enabled.
 
-### Backend Setup
+###  Setup
 
-1.  Navigate to the `backend` directory and execute these commands:
+1.  Navigate to the `main folder` directory and execute these commands:
     ```bash
-    cd backend
-    go mod tidy
-    go run main.go
+    docker-compose up
     ```
-
-### Frontend Setup
-
-1.  In a new terminal, navigate to the `frontend` directory and run these commands:
-    ```bash
-    cd ../frontend
-    npm install
-    npm start
-    ```
-
+    
 ## References
 
 - https://medium.com/@blogs4devs/implementing-a-remote-code-execution-engine-from-scratch-4a765a3c7303
