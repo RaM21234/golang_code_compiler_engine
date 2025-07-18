@@ -7,15 +7,18 @@ const SignupPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isOTPSent, setIsOTPSent] = useState(false); // New state
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Clear previous errors
-    setMessage(""); // Clear previous messages
+    setMessage("Sending OTP to your email..."); // Immediate feedback
+    setIsOTPSent(false); // Reset OTP sent status
 
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      setMessage(""); // Clear sending message if validation fails
       return;
     }
 
@@ -36,8 +39,12 @@ const SignupPage = () => {
 
       if (response.ok) {
         setMessage(data.message || "Signup successful!");
+        setIsOTPSent(true); // Set OTP sent to true
         console.log("Signup successful:", data.message);
-        navigate('/verify-otp', { state: { email: email } }); // Redirect to OTP verification
+        // Delay navigation to allow user to read the message
+        setTimeout(() => {
+          navigate('/verify-otp', { state: { email: email } });
+        }, 3000); // Navigate after 3 seconds
       } else {
         setError(data.error || "Signup failed");
         console.error("Signup error:", data.error);
@@ -87,6 +94,7 @@ const SignupPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={isOTPSent} // Disable after OTP is sent
             />
           </div>
           <div className="mb-4">
@@ -103,6 +111,7 @@ const SignupPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              disabled={isOTPSent} // Disable after OTP is sent
             />
           </div>
           <div className="mb-6">
@@ -119,12 +128,14 @@ const SignupPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              disabled={isOTPSent} // Disable after OTP is sent
             />
           </div>
           <div className="flex items-center justify-between">
             <button
               type="submit"
               className="px-8 py-3 bg-gradient-to-r from-primary-500 to-accent-cyan text-white font-semibold rounded-lg shadow-lg hover:scale-105 transform transition-transform duration-300 ease-in-out w-full"
+              disabled={isOTPSent} // Disable after OTP is sent
             >
               Sign Up
             </button>

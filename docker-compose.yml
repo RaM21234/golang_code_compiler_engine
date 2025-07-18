@@ -11,7 +11,7 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      - HOST_PROJECT_PATH=C:/Users/ramku/OneDrive/Desktop/new_folder/golang/project-3
+      - HOST_PROJECT_PATH=C:/Users/ramku/OneDrive/Desktop/new_folder/golang/golang_code_compiler_engine
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./code-exec:/code-exec
@@ -32,13 +32,15 @@ services:
       - "6379:6379"
     restart: unless-stopped
 
-  # # Frontend service (if you have one—e.g. React/Vite)
-  # frontend:
-  #   build:
-  #     context: ./frontend
-  #   container_name: compiler-frontend
-  #   ports:
-  #     - "3000:3000"
-  #   # If your frontend talks to the backend at /execute:
-  #   environment:
-  #     - REACT_APP_API_URL=http://localhost:8000
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - REACT_APP_BACKEND_URL=http://localhost:8003
+    container_name: compiler-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8003
+    depends_on:
+      - backend
