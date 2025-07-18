@@ -42,8 +42,7 @@ At some point in our journey as developers, many of us have probably used platfo
 
 ## Architecture Overview
 
-The project follows a client-server architecture:
-diagram to demonstarate the flow of data
+The project follows a client-server architecture
 
 - **Frontend:** A React application provides the user interface, handling code editing, user authentication, and displaying execution results.
 - **Backend:** A Go application serves the API endpoints. It manages user data, code storage, and orchestrates the code compilation and execution process.
