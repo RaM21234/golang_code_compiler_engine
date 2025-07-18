@@ -1,4 +1,4 @@
-# Code Editor - Secure Online Code Editor & Compiler
+# GoCode  - Secure Online Code Editor & Compiler
 
 ## About The Project
 
